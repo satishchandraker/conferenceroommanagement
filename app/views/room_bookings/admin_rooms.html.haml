@@ -1,0 +1,24 @@
+.button_pane.mbot_10.cf
+  %a.btn.btn_green.right.mright_10{:href => new_room_path}
+    %i.fa.fa-plus
+    New Room
+%section.panel
+  =# render :partial => "rooms/search"
+%section.panel
+  .panel_heading Room Listing
+  .panel_body
+    %table.table.table_border.table_stripped.order_table
+      %thead
+        %tr
+          %th Name
+          %th Manage
+      %tbody
+        - @rooms.each do |b|
+          %tr
+            %td= b.name
+            %td
+              = link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_room_path(b),:class=>'action'
+              = link_to '<i class="fa fa-trash"></i>'.html_safe, b, :confirm => 'Are you sure?', :method => :delete,:class=>'action'
+
+.subNavCnt.firmPagi
+  = paginate @rooms if @rooms.present?

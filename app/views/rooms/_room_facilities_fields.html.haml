@@ -1,0 +1,7 @@
+.fields
+  .form_group.cf.mbot_20
+    %label.field_label Facility:
+    .field
+      = f.text_field :name, :class => "textfield"
+    .field
+      = link_to_remove_fields '<input type="button" value="REMOVE" name="remove" class="upload_btn btn btn_skyblue btn_small">'.html_safe, f  

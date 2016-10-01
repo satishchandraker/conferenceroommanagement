@@ -1,0 +1,37 @@
+.button_pane.mbot_10.cf
+  - if current_user.present?
+    %a.btn.btn_green.right.mright_10{:href => new_room_room_booking_path(@room)}
+      %i.fa.fa-plus
+      New Booking
+  - else
+    %a.btn.btn_green.right.mright_10{:href => "/users/sign_in"}
+      %i.fa.fa-plus
+      New Booking
+      
+%section.panel
+  =# render :partial => "rooms/search"
+%section.panel
+  .panel_heading Room Booking Listing
+  .panel_body
+    %table.table.table_border.table_stripped.order_table
+      %thead
+        %tr
+          %th Date
+          %th In Time
+          %th Out Time
+          %th Book By
+          %th Status
+          %th Manage
+      %tbody
+        - @room_bookings.each do |b|
+          %tr
+            %td= b.book_date
+            %td= b.in_time.strftime("%H:%M")
+            %td= b.out_time.strftime("%H:%M")
+            %td= b.user.email if b.user.present?
+            %td= b.status
+            %td= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_room_room_booking_path(b.room,b), :class=>'action'
+
+
+.subNavCnt.firmPagi
+  = paginate @room_bookings if @room_bookings.present?

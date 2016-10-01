@@ -1,0 +1,49 @@
+!!!
+%html
+  %head
+    %title Hotel Manangment
+    = stylesheet_link_tag    "admin"
+    = javascript_include_tag "admin"
+    = csrf_meta_tags
+
+    :javascript
+      $(document).ready(function () { $(".editor").cleditor(); });
+  %body
+    %section.container
+      %header
+        .brand
+          %a.logo{:href => "/"}
+            %img{:alt => "Satish", :height => "40", :src => "/assets/logo.png", :width => "100"}
+        - if current_user.present?
+          .top_menu.right
+            .left.admin_info
+              %span.admin_image.left
+                %img{:src => "/assets/img_user.png"}/
+              %span.admin_name.left= current_user.email
+              = link_to destroy_user_session_path,:method => 'delete', :class => "left mtop_10 logout" do
+                %i.fa.fa-power-off.mright_5
+                Logout
+      %aside.sidebar
+        .left_menu.mCustomScrollbar
+          = render "layouts/admin_menu"
+      %section.main_content
+        %section.wrapper
+          = yield
+    :javascript
+      $(function(){
+        $(".chosen_select").chosen();
+        $(".chosen_no_search").chosen({
+          disable_search: true
+        });
+        $(".toggle_btn").click(function(){
+          var $panel_body = $(this).parent().next();
+          if($panel_body.is(":hidden")) {
+            $panel_body.slideDown();
+            $(this).addClass("down_arrow").attr("title","Hide Filter");
+          }
+          else {
+            $panel_body.slideUp();
+            $(this).removeClass("down_arrow").attr("title","Show Filter");
+          }
+        });
+      });

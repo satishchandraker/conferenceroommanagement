@@ -1,0 +1,6 @@
+development:
+  adapter: postgresql
+  database: hotelmanagement_development
+  host: localhost
+  username: pguser
+  password: password

@@ -1,0 +1,32 @@
+= form_for(@room) do  |f|
+  .panel_body
+    %fieldset
+      %legend Basic
+      .horizontal_form.form_content
+        .form_group.cf.mbot_20
+          %label.field_label Room No:
+          .field
+            = f.text_field :name, :class => "textfield"
+        
+        .product_size_div Add Facilites:
+        .clear
+        .form_group.cf.mbot_20
+          = f.fields_for :room_facilities do |builder|
+            = render 'rooms/room_facilities_fields', :f => builder
+          .field
+            = link_to_add_fields '<input type="button" value="ADD Facility" name="ADD NEW" class="upload_btn btn btn_skyblue btn_small" style="margin-right: 100px;">'.html_safe, f, :room_facilities, 'rooms/room_facilities_fields'
+        .form_group.cf.mbot_20
+          = f.submit "Submit", :class => "btn btn_skyblue btn_small"
+:javascript
+
+  function add_fields(link, association, content, partials) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g");
+    $(link).parent().before(content.replace(regexp, new_id));
+    $(".chosen_select").chosen();
+  }
+
+  function remove_fields(link) {
+    $(link).prev("input[type=hidden]").val("1");
+    $(link).closest(".fields").hide();
+  }

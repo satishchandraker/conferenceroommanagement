@@ -1,0 +1,33 @@
+= form_for([@room, @room_booking]) do  |f|
+  .panel_body
+    %fieldset
+      %legend Basic
+      .horizontal_form.form_content
+        .form_group.cf.mbot_20
+          %label.field_label Booking Date:
+          .field
+            = f.text_field :book_date, :class => "textfield", :placeholder => "yyyy/dd/mm"
+        
+        .form_group.cf.mbot_20
+          %label.field_label In Time:
+          .field
+            = f.text_field :in_time, :class => "textfield", :placeholder => "HH:MM:SS"
+        .form_group.cf.mbot_20
+          %label.field_label Out Time:
+          .field
+            = f.text_field :out_time, :class => "textfield", :placeholder => "HH:MM:SS"
+                
+          = f.submit "Submit", :class => "btn btn_skyblue btn_small"
+:javascript
+
+  function add_fields(link, association, content, partials) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g");
+    $(link).parent().before(content.replace(regexp, new_id));
+    $(".chosen_select").chosen();
+  }
+
+  function remove_fields(link) {
+    $(link).prev("input[type=hidden]").val("1");
+    $(link).closest(".fields").hide();
+  }

@@ -1,0 +1,26 @@
+%section.panel
+  = render :partial => "rooms/search"
+%section.panel
+  .panel_heading Room Listing
+  .panel_body
+    %table.table.table_border.table_stripped.order_table
+      %thead
+        %tr
+          %th Name
+          %th Facilities
+          %th Manage
+      %tbody
+        - @rooms.each do |b|
+          %tr
+            %td= b.name
+            %td
+              = b.room_facilities.pluck(:name).join(", ") rescue ""
+            %td
+              - if current_user.present?
+                = link_to 'Book', new_room_room_booking_path(room_id: b.id)
+              - else
+                = link_to 'Book', "/users/sign_in"
+              = link_to "Reseve", room_room_bookings_path(room_id: b.id)
+
+.subNavCnt.firmPagi
+  = paginate @rooms if @rooms.present?

@@ -1,0 +1,16 @@
+.panel_heading
+  Search by Filters
+  %a.toggle_btn.right.down_arrow{:href => "javascript:void(0);", :title => "Hide Filter"}
+.panel_body
+  .inline_form.product_filters.cf
+    = form_tag("/rooms", :method => "get") do
+      .form_row.mbot_20.cf
+        .form_group
+          %label.field_label Search by Name:
+          .field
+            = text_field_tag :search , params[:search], :class => "textfield"
+      .form_row.cf
+        .form_group
+          %button.btn.btn_green{:type => "submit"}
+            %i.fa.fa-search
+            Search
